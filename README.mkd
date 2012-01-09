@@ -1,7 +1,7 @@
-This is an python oauth lib for renren based on the official python SDK
+#This is an python oauth lib for renren based on the official python SDK
 Author:[xiaoba](http://blog.xiaoba.me)
 ======
 Usage:
 ======
-* Visit[RenRen](http://dev.renren.com) to create your own app and get an api\_key * secret\_key
+* Visit [RenRen](http://dev.renren.com) to create your own app and get an api\_key and secret\_key
 * Follow the [Tutorial](http://wiki.dev.renren.com/wiki/Authentication) and pass approprite parameters when initialize the class RenRenOauth
