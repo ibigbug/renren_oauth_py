@@ -27,8 +27,6 @@ RENREN_API_SERVER = "http://api.renren.com/restserver.do"
 
 
 import base64
-import Cookie
-import email.utils
 import hashlib
 import hmac
 import logging
