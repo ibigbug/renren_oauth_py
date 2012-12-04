@@ -2,11 +2,15 @@
 from renren import *
 import pprint
 
-api_key = "e27f60df21a14c97bccf5291c480439f"
-secret_key = "0078facdd214451b82433377c28927b3"
+api_key = "febdee5ac3324567b390beaa1f0c1307"
+secret_key = "d40bcb2b0a39440a898b14915b01e038"
 
-renren = RenRenOauth(api_key=api_key,redirect_uri="http://127.0.0.1")
-print "Go to" 
+renren = RenRenOauth(
+    api_key=api_key,
+    redirect_uri="http://renrenhole.sinaapp.com",
+    scope='photo_upload admin_page',
+)
+print "Go to"
 
 #Redirect user to this url
 print renren.get_authorize_url()
@@ -14,13 +18,14 @@ print renren.get_authorize_url()
 code = raw_input("The code?")
 
 #get access_token
-renren = RenRenOauth(api_key=api_key,secret_key=secret_key,redirect_uri="http://127.0.0.1")
+renren =\
+RenRenOauth(api_key=api_key,secret_key=secret_key,redirect_uri="http://renrenhole.sinaapp.com")
 access_token = renren.get_access_token(code)
 
 print "access_token is"
 print access_token
 """
-to make a request 
+to make a request
 format your params like this
 args = {
     "method" : "users.getInfo",

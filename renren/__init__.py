@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding=utf-8
-# 
+#
 # Copyright 2010 RenRen
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -44,12 +44,13 @@ class RenRenOauth(object):
         self.scope = scope
         self.redirect_uri = redirect_uri
         self.access_token = access_token
-    
+
     def get_authorize_url(self):
         args = {}
         args["client_id"] = self.api_key
         args["redirect_uri"] = self.redirect_uri
         args["response_type"] = "code"
+        args["scope"] = self.scope
 
         params = urllib.urlencode(args)
         url = RENREN_AUTHORIZATION_URI+"?"+params
@@ -62,7 +63,7 @@ class RenRenOauth(object):
         args["redirect_uri"] = self.redirect_uri
         args["client_secret"] = self.secret_key
         args["code"] = code
-        
+
         params = urllib.urlencode(args)
         request = urllib.urlopen(RENREN_ACCESS_TOKEN_URI,params)
         response = request.read()
@@ -83,13 +84,13 @@ class RenRenOauth(object):
         params.update(args)
         sig = self.hash_params(params);
         params["sig"] = sig
-        
+
         post_data = None if params is None else urllib.urlencode(params)
-        
+
         #logging.info("request params are: " + str(post_data))
-        
+
         fetch = urllib.urlopen(RENREN_API_SERVER, post_data)
-        
+
         try:
             response = fetch.read()
             response = parse_json(response)
@@ -108,7 +109,7 @@ class RenRenOauth(object):
         Detect if a string is unicode and encode as utf-8 if necessary
         """
         return isinstance(str, unicode) and str.encode('utf-8') or str
-    
+
 
 class RenRenAPIError(Exception):
     def __init__(self, code, message):
