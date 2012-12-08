@@ -2,8 +2,8 @@
 from renren import *
 import pprint
 
-api_key = "febdee5ac3324567b390beaa1f0c1307"
-secret_key = "d40bcb2b0a39440a898b14915b01e038"
+api_key = "xxx"
+secret_key = "xxx"
 
 renren = RenRenOauth(
     api_key=api_key,
