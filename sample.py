@@ -2,10 +2,9 @@
 from renren import *
 import pprint
 
-#api_key = "febdee5ac3324567b390beaa1f0c1307"
-api_key = "api_key"
-secret_key = "secret_key"
-redirect_uri = "http://widget.renren.com/callback.html"
+api_key = "#"
+secret_key = "#"
+redirect_uri = "#"
 
 renren = RenRenOauth(
     api_key=api_key,
