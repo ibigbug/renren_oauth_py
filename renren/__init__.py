@@ -26,19 +26,18 @@ RENREN_SESSION_KEY_URI = "http://graph.renren.com/renren_api/session_key"
 RENREN_API_SERVER = "http://api.renren.com/restserver.do"
 
 
-import base64
 import hashlib
-import hmac
 import logging
-import os.path
 import time
 import urllib
 import json
 
 parse_json = lambda s: json.loads(s)
 
+
 class RenRenOauth(object):
-    def __init__(self,api_key=None,secret_key=None,scope=None,redirect_uri=None,access_token=None):
+    def __init__(self, api_key=None, secret_key=None, scope=None,
+                 redirect_uri=None, access_token=None):
         self.api_key = api_key
         self.secret_key = secret_key
         self.scope = scope
@@ -65,7 +64,7 @@ class RenRenOauth(object):
         args["code"] = code
 
         params = urllib.urlencode(args)
-        request = urllib.urlopen(RENREN_ACCESS_TOKEN_URI,params)
+        request = urllib.urlopen(RENREN_ACCESS_TOKEN_URI, params)
         response = request.read()
         request.close()
         response = parse_json(response)
@@ -82,7 +81,7 @@ class RenRenOauth(object):
         params["access_token"] = self.access_token
         params["v"] = '1.0'
         params.update(args)
-        sig = self.hash_params(params);
+        sig = self.hash_params(params)
         params["sig"] = sig
 
         post_data = None if params is None else urllib.urlencode(params)
@@ -100,10 +99,15 @@ class RenRenOauth(object):
             logging.info(response["error_msg"])
             raise RenRenAPIError(response["error_code"], response["error_msg"])
         return response
-    def hash_params(self, params = None):
-        hasher = hashlib.md5("".join(["%s=%s" % (self.unicode_encode(x), self.unicode_encode(params[x])) for x in sorted(params.keys())]))
+
+    def hash_params(self, params=None):
+        hasher = hashlib.md5("".join(["%s=%s" %
+                                      (self.unicode_encode(x),
+                                       self.unicode_encode(params[x]))
+                                      for x in sorted(params.keys())]))
         hasher.update(self.secret_key)
         return hasher.hexdigest()
+
     def unicode_encode(self, str):
         """
         Detect if a string is unicode and encode as utf-8 if necessary

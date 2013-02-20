@@ -2,13 +2,15 @@
 from renren import *
 import pprint
 
-api_key = "febdee5ac3324567b390beaa1f0c1307"
-secret_key = "d40bcb2b0a39440a898b14915b01e038"
+#api_key = "febdee5ac3324567b390beaa1f0c1307"
+api_key = "api_key"
+secret_key = "secret_key"
+redirect_uri = "http://widget.renren.com/callback.html"
 
 renren = RenRenOauth(
     api_key=api_key,
-    redirect_uri="http://renrenhole.sinaapp.com",
-    scope='photo_upload admin_page',
+    redirect_uri=redirect_uri,
+    scope='photo_upload admin_page read_user_status publish_comment',
 )
 print "Go to"
 
@@ -19,7 +21,7 @@ code = raw_input("The code?")
 
 #get access_token
 renren =\
-RenRenOauth(api_key=api_key,secret_key=secret_key,redirect_uri="http://renrenhole.sinaapp.com")
+RenRenOauth(api_key=api_key,secret_key=secret_key,redirect_uri="http://www.whuhole.tk")
 access_token = renren.get_access_token(code)
 
 print "access_token is"
