@@ -37,12 +37,13 @@ parse_json = lambda s: json.loads(s)
 
 class RenRenOauth(object):
     def __init__(self, api_key=None, secret_key=None, scope=None,
-                 redirect_uri=None, access_token=None):
+                 redirect_uri=None, access_token=None, refresh_token=None):
         self.api_key = api_key
         self.secret_key = secret_key
         self.scope = scope
         self.redirect_uri = redirect_uri
         self.access_token = access_token
+        self.refresh_token = refresh_token
 
     def get_authorize_url(self):
         args = {}
@@ -113,6 +114,9 @@ class RenRenOauth(object):
         Detect if a string is unicode and encode as utf-8 if necessary
         """
         return isinstance(str, unicode) and str.encode('utf-8') or str
+
+    def refresh_token(self):
+        pass
 
 
 class RenRenAPIError(Exception):
