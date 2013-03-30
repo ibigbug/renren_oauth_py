@@ -27,7 +27,6 @@ RENREN_API_SERVER = "http://api.renren.com/restserver.do"
 
 
 import hashlib
-import logging
 import time
 import urllib
 import json
@@ -94,11 +93,10 @@ class RenRenOauth(object):
         try:
             response = fetch.read()
             response = parse_json(response)
+        except:
+            response = {u'error_msg': u'API Error'}
         finally:
             fetch.close()
-        if type(response) is not list and response["error_code"]:
-            logging.info(response["error_msg"])
-            raise RenRenAPIError(response["error_code"], response["error_msg"])
         return response
 
     def hash_params(self, params=None):
@@ -115,12 +113,17 @@ class RenRenOauth(object):
         """
         return isinstance(str, unicode) and str.encode('utf-8') or str
 
-    def refresh_token(self):
-        pass
-
-
-class RenRenAPIError(Exception):
-    def __init__(self, code, message):
-        message = message.encode("utf-8")
-        Exception.__init__(self, message)
-        self.code = code
+    def get_refresh_token(self):
+        has_refresh_token = self.refresh_token or None
+        assert has_refresh_token, 'refresh_token not found'
+        params = {
+            'grant_type': 'refresh_token',
+            'refresh_token': self.refresh_token,
+            'client_id': self.api_key,
+            'client_secret': self.secret_key,
+        }
+        params = urllib.urlencode(params)
+        req = urllib.urlopen(RENREN_ACCESS_TOKEN_URI, params)
+        resp = parse_json(req.read())
+        self.access_token = resp.get('access_token')
+        return resp
